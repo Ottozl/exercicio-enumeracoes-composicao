@@ -43,9 +43,11 @@ public class Program {
 			double productPrice = sc.nextDouble();
 			System.out.println("Quantity: ");
 			int productQuantity = sc.nextInt();
+			sc.nextLine();
 
 			OrderItem products = new OrderItem(productQuantity, productPrice, new Product(productName, productPrice));
 			order.addItem(products);
+			
 
 		}
 		
@@ -53,10 +55,16 @@ public class Program {
 		System.out.println("Order moment: " + sdf2.format(order.getMoment()));
 		System.out.println("Order status: " + order.getStatus());
 		System.out.println("Client: " + order.getClient().getName() + " (" + sdf1.format(order.getClient().getBirthDate()) + ") - " + order.getClient().getEmail());
+		
 		System.out.println("Order Items");
-		for (int i = 1; i <= n; i++) {
-			System.out.println(order.getItems());
-		}
+		order.getItems().forEach(item -> {
+			System.out.println(item.getProduct().getName() + ", $" + item.getProduct().getPrice() +
+				", Quantity: " + item.getQuantity() + ", Subtotal: $" + item.getQuantity() * item.getPrice() );
+			
+		});
+		
+			
+		System.out.println("Total Price: " + order.total() );
 		
 
 		sc.close();
