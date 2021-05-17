@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-
 import entities.Client;
 import entities.Order;
 import entities.OrderItem;
@@ -47,26 +46,19 @@ public class Program {
 
 			OrderItem products = new OrderItem(productQuantity, productPrice, new Product(productName, productPrice));
 			order.addItem(products);
-			
-
 		}
-		
 		System.out.println("Order Summary");
 		System.out.println("Order moment: " + sdf2.format(order.getMoment()));
 		System.out.println("Order status: " + order.getStatus());
-		System.out.println("Client: " + order.getClient().getName() + " (" + sdf1.format(order.getClient().getBirthDate()) + ") - " + order.getClient().getEmail());
-		
+		System.out.println("Client: " + order.getClient().getName() + " ("
+				+ sdf1.format(order.getClient().getBirthDate()) + ") - " + order.getClient().getEmail());
+
 		System.out.println("Order Items");
 		order.getItems().forEach(item -> {
-			System.out.println(item.getProduct().getName() + ", $" + item.getProduct().getPrice() +
-				", Quantity: " + item.getQuantity() + ", Subtotal: $" + item.getQuantity() * item.getPrice() );
-			
+			System.out.println(item.getProduct().getName() + ", $" + item.getProduct().getPrice() + ", Quantity: "
+					+ item.getQuantity() + ", Subtotal: $" + item.subTotal());
 		});
-		
-			
-		System.out.println("Total Price: " + order.total() );
-		
-
+		System.out.println("Total Price: " + order.total());
 		sc.close();
 	}
 

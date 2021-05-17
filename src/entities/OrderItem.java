@@ -40,9 +40,10 @@ public class OrderItem {
 		this.product = product;
 	}
 
-	public double subTotal() {
+	public Double subTotal() {
 
-		double subTotal = price * quantity;
-		return subTotal;
+		return quantity * price;
 	}
+	
+	
 }
