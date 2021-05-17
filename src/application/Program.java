@@ -8,13 +8,15 @@ import java.util.Scanner;
 import entities.Client;
 import entities.Order;
 import entities.OrderItem;
+import entities.Product;
 import entities.enums.OrderStatus;
 
 public class Program {
 
 	public static void main(String[] args) throws ParseException {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Enter client data");
@@ -23,7 +25,7 @@ public class Program {
 		System.out.print("Email: ");
 		String email = sc.nextLine();
 		System.out.print("Birth date (DD/MM/YYYY): ");
-		Date birthDate = sdf.parse(sc.next());
+		Date birthDate = sdf1.parse(sc.next());
 		sc.nextLine();
 		System.out.print("Status: ");
 		String orderStatus = sc.nextLine();
@@ -32,7 +34,8 @@ public class Program {
 
 		System.out.print("How many items for this order? ");
 		int n = sc.nextInt();
-		for (int i=1; i<=n; i++) {
+		sc.nextLine();
+		for (int i = 1; i <= n; i++) {
 			System.out.println("Enter #" + i + " item data");
 			System.out.print("Product name: ");
 			String productName = sc.nextLine();
@@ -40,13 +43,22 @@ public class Program {
 			double productPrice = sc.nextDouble();
 			System.out.println("Quantity: ");
 			int productQuantity = sc.nextInt();
-			
-			OrderItem products = new OrderItem();
-			
-			
-			
+
+			OrderItem products = new OrderItem(productQuantity, productPrice, new Product(productName, productPrice));
+			order.addItem(products);
+
 		}
 		
+		System.out.println("Order Summary");
+		System.out.println("Order moment: " + sdf2.format(order.getMoment()));
+		System.out.println("Order status: " + order.getStatus());
+		System.out.println("Client: " + order.getClient().getName() + " (" + sdf1.format(order.getClient().getBirthDate()) + ") - " + order.getClient().getEmail());
+		System.out.println("Order Items");
+		for (int i = 1; i <= n; i++) {
+			System.out.println(order.getItems());
+		}
+		
+
 		sc.close();
 	}
 
